@@ -1,4 +1,4 @@
-/usr/sbin/init
+#!/bin/bash
 
 #Getting branch details from input argument 1
 BRANCH=$1
