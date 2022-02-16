@@ -60,7 +60,7 @@ jobs:
                     cp build.sh Docker/Ubuntu/
                     cd Docker/Ubuntu
                     docker build -t gluster-build .
-                    docker run --security-opt seccomp=unconfined --name container_gluster -v /build-out:/out gluster-build $BRANCH
+                    docker run --security-opt seccomp=unconfined --name container_gluster -v /build-out:/out gluster-build
             fi
             
             if [[ "${{ github.event.inputs.buildosflavor }}" == "debian" ]]; then
