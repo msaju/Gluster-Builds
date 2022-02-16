@@ -21,4 +21,6 @@ COPY ./startscript.sh /
 
 RUN chmod +x /startscript.sh
 
-CMD /startscript.sh
+ENTRYPOINT ["/startscript.sh"]
+
+CMD ["devel"]
