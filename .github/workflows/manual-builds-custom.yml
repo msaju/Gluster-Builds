@@ -39,7 +39,7 @@ jobs:
                   cp startscript-centos7.sh Docker/Centos7/
                   cd Docker/Centos7
                   docker build -t gluster-build .  
-                  docker run --name container_gluster -v /build-out:/out gluster-build ${{env.BRANCH}}
+                  docker run --name container_gluster -v /build-out:/out gluster-build $BRANCH
             fi
             
             if [[ "${{ github.event.inputs.buildosflavor }}" == "centos8" ]]; then
