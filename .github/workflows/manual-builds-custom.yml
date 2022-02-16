@@ -46,28 +46,28 @@ jobs:
                   cp startscript.sh Docker/Centos8/
                   cd Docker/Centos8
                   docker build -t gluster-build .
-                  run: docker run --name container_gluster -v /build-out:/out gluster-build $BRANCH
+                  docker run --name container_gluster -v /build-out:/out gluster-build $BRANCH
             fi
             
             if [[ "${{ github.event.inputs.buildosflavor }}" == "fedora" ]]; then
                     cp startscript.sh Docker/Fedora/
                     cd Docker/Fedora
                     docker build -t gluster-build .
-                    run: docker run --name container_gluster -v /build-out:/out gluster-build $BRANCH
+                    docker run --name container_gluster -v /build-out:/out gluster-build $BRANCH
             fi
             
             if [[ "${{ github.event.inputs.buildosflavor }}" == "ubuntu" ]]; then
                     cp build.sh Docker/Ubuntu/
                     cd Docker/Ubuntu
                     docker build -t gluster-build .
-                    run:  docker run --security-opt seccomp=unconfined --name container_gluster -v /build-out:/out gluster-build $BRANCH
+                    docker run --security-opt seccomp=unconfined --name container_gluster -v /build-out:/out gluster-build $BRANCH
             fi
             
             if [[ "${{ github.event.inputs.buildosflavor }}" == "debian" ]]; then
                     cp build.sh Docker/Debian/
                     cd Docker/Debian
                     docker build -t gluster-build .
-                    run:  docker run --security-opt seccomp=unconfined --name container_gluster -v /build-out:/out gluster-build $BRANCH
+                    docker run --security-opt seccomp=unconfined --name container_gluster -v /build-out:/out gluster-build $BRANCH
             fi
     
     - name: Upload Artifactory
