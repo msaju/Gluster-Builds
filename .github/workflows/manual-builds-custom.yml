@@ -5,7 +5,7 @@ on:
   
     inputs:
       buildosflavor:
-        description: 'centos7 / centos8 / fedora / ubuntu / debian'
+        description: 'Select the OS Flavour - centos7 / centos8 / fedora / ubuntu / debian'
         required: true
         options: ['centos7', 'centos8', 'fedora', 'ubuntu', 'debian']
         default: 'fedora'
