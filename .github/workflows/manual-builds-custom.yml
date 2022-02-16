@@ -16,6 +16,9 @@ on:
         options: ['devel', 'v10.1', 'v9.5']
         default: 'devel'
 
+env:
+  BRANCH: "${{ github.event.inputs.branchesflavor }}"
+  
 jobs:
   Build:
     runs-on: ubuntu-latest
@@ -36,7 +39,7 @@ jobs:
                   cp startscript-centos7.sh Docker/Centos7/
                   cd Docker/Centos7
                   docker build -t gluster-build .  
-                  docker run --name container_gluster -v /build-out:/out gluster-build "${{ github.event.inputs.branchesflavor }}"
+                  docker run --name container_gluster -v /build-out:/out gluster-build env.BRANCH
             fi
             
             if [[ "${{ github.event.inputs.buildosflavor }}" == "centos8" ]]; then
