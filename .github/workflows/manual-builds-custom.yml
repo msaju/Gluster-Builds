@@ -11,7 +11,7 @@ on:
         default: 'fedora'
      
       branchesflavor:
-        description: 'Select the Gluster Branch'
+        description: 'Select the Gluster Branch: eg:- devel, v10.1, v9.5,v8.6'
         required: true
         options: ['devel', 'v10.1', 'v9.5']
         default: 'devel'
@@ -33,7 +33,6 @@ jobs:
     - name: Selecting build based on OS flavour
       run: |
             if [[ "${{ github.event.inputs.buildosflavor }}" == "centos7" ]]; then
-               run: |
                   cp startscript-centos7.sh Docker/Centos7/
                   cd Docker/Centos7
                   docker build -t gluster-build .  
