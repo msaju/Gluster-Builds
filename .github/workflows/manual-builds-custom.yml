@@ -33,13 +33,11 @@ jobs:
     - name: Selecting build based on OS flavour
       run: |
             if [[ "${{ github.event.inputs.buildosflavor }}" == "centos7" ]]; then
-              - name: Build from Dockerfile
-                run: |
+               run: |
                   cp startscript-centos7.sh Docker/Centos7/
                   cd Docker/Centos7
                   docker build -t gluster-build .  
-              - name: Running Build in Centos7 Container
-                run: docker run --name container_gluster -v /build-out:/out gluster-build "${{ github.event.inputs.branchesflavor }}"
+                  docker run --name container_gluster -v /build-out:/out gluster-build "${{ github.event.inputs.branchesflavor }}"
             fi
             
             if [[ "${{ github.event.inputs.buildosflavor }}" == "centos8" ]]; then
