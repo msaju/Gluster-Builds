@@ -54,21 +54,21 @@ jobs:
       run: |
             echo  $OS_VER
             #echo "${{ env.OS_VER }}"
-            if [[ ${{ env.OS_VER }} == 'centos7' }} ]]; then
+            if [[ ${{ env.OS_VER }} == 'centos7'  ]]; then
                   cp startscript-centos7.sh Docker/Centos7/
                   cd Docker/Centos7
                   docker build -t gluster-build --build-arg MYAPP_IMAGE=env.OS_VER .  
                   #docker run --name container_gluster -v /build-out:/out gluster-build $BRANCH
             fi
             
-            if [[ "${{ OS_VER  == 'centos8' }}" ]]; then
+            if [[ ${{ env.OS_VER }}  == 'centos8' ]]; then
                   cp startscript.sh Docker/Centos8/
                   cd Docker/Centos8
                   docker build -t gluster-build .
                   docker run --name container_gluster -v /build-out:/out gluster-build $BRANCH
             fi
             
-            if [[ ${{ OS_VER == 'fedora' }} ]]; then
+            if [[ ${{ env.OS_VER }} == 'fedora' ]]; then
                     cp startscript.sh Docker/Fedora/
                     cd Docker/Fedora
                     docker build -t gluster-build .
