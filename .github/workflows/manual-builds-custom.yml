@@ -26,7 +26,8 @@ env:
   OS: "${{ github.event.inputs.buildosflavor }}"
   VER: "${{ github.event.inputs.buildosver }}"
   BRANCH: "${{ github.event.inputs.branchesflavor }}"
-  OS_VER: '${{ env.OS }}${{ env.VER }}'
+  
+
   
 jobs:
   Build:
@@ -41,7 +42,10 @@ jobs:
     
     - name: Cleanup Old Docker images if any
       run:  docker system prune -af
-      
+    - name: Set env
+      env:
+        OS_VER: '${{ env.OS }}${{ env.VER }}'
+        
     - name: Selecting build based on OS flavour
       run: |
             echo $OS_VER
