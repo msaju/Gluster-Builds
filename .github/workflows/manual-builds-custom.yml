@@ -45,6 +45,7 @@ jobs:
     - name: Set env
       env:
         OS_VER: '${{ env.OS }}${{ env.VER }}'
+      run: echo $OS_VER
         
     - name: Selecting build based on OS flavour
       run: |
