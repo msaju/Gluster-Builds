@@ -26,6 +26,7 @@ env:
   OS: "${{ github.event.inputs.buildosflavor }}"
   VER: "${{ github.event.inputs.buildosver }}"
   BRANCH: "${{ github.event.inputs.branchesflavor }}"
+  OS_VER: '${{ env.OS }}${{ env.VER }}'
   
 jobs:
   Build:
@@ -43,13 +44,12 @@ jobs:
       
     - name: Selecting build based on OS flavour
       run: |
-            echo "$OS"
-            echo "$VER"
-            #echo "OS VERSION is $OS_VER"
-            if [[ "${{ OS_VER }}" == "centos7" ]]; then
+            echo $OS_VER
+            
+            if [[ "${{ env.OS_VER }}" == "centos7" ]]; then
                   cp startscript-centos7.sh Docker/Centos7/
                   cd Docker/Centos7
-                  docker build -t gluster-build --build-arg MYAPP_IMAGE=OS_VER .  
+                  docker build -t gluster-build --build-arg MYAPP_IMAGE=env.OS_VER .  
                   #docker run --name container_gluster -v /build-out:/out gluster-build $BRANCH
             fi
             
