@@ -49,9 +49,9 @@ jobs:
         
     - name: Selecting build based on OS flavour
       run: |
-            echo $OS_VER
+            echo $env.OS_VER
             
-            if [[ ${{ env.OS_VER == 'centos7' }} ]]; then
+            if [[ "${{ env.OS_VER }}" == "centos7" }} ]]; then
                   cp startscript-centos7.sh Docker/Centos7/
                   cd Docker/Centos7
                   docker build -t gluster-build --build-arg MYAPP_IMAGE=env.OS_VER .  
