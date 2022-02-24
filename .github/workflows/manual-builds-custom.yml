@@ -5,10 +5,16 @@ on:
   
     inputs:
       buildosflavor:
-        description: 'Select the OS Flavour - centos7 / centos8 / fedora / ubuntu / debian'
+        description: 'Select the OS Flavour - centos / fedora / ubuntu / debian'
         required: true
-        options: ['centos7', 'centos8', 'fedora', 'ubuntu', 'debian']
+        options: ['centos', 'fedora', 'ubuntu', 'debian']
         default: 'fedora'
+     
+      buildosver:
+        description: 'Select the OS version - centos (7/8:stream) / fedora(Fxx/latest) / ubuntu(22.04/jammy) / debian(bullseye/10.11)'
+        required: true
+        options: ['7', '8:stream', 'F33', 'focal', 'jammy']
+        default: 'F33'
      
       branchesflavor:
         description: 'Select the Gluster Branch: eg:- devel, v10.1, v9.5,v8.6'
@@ -17,8 +23,10 @@ on:
         default: 'devel'
 
 env:
+  OS: "${{ github.event.inputs.buildosflavor }}"
+  VER: "${{ github.event.inputs.buildosver }}"
   BRANCH: "${{ github.event.inputs.branchesflavor }}"
-  
+  OS_VER: $OS$VER
 jobs:
   Build:
     runs-on: ubuntu-latest
@@ -35,11 +43,12 @@ jobs:
       
     - name: Selecting build based on OS flavour
       run: |
+            echo "OS VERSION is $OS_VER"
             if [[ "${{ github.event.inputs.buildosflavor }}" == "centos7" ]]; then
                   cp startscript-centos7.sh Docker/Centos7/
                   cd Docker/Centos7
-                  docker build -t gluster-build .  
-                  docker run --name container_gluster -v /build-out:/out gluster-build $BRANCH
+                  docker build -t gluster-build --build-arg MYAPP_IMAGE=OS_VER .  
+                  #docker run --name container_gluster -v /build-out:/out gluster-build $BRANCH
             fi
             
             if [[ "${{ github.event.inputs.buildosflavor }}" == "centos8" ]]; then
