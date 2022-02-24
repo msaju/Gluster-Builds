@@ -49,7 +49,7 @@ jobs:
         
     - name: Selecting build based on OS flavour
       run: |
-            echo "OS Version is" $OS_VER
+            echo  $OS_VER
             echo "${{ env.OS_VER }}"
             
             if [[ "${{ OS_VER }}" == "centos7" }} ]]; then
