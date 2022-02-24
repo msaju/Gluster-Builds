@@ -43,7 +43,7 @@ jobs:
       
     - name: Selecting build based on OS flavour
       run: |
-            echo "${OS}${VER}" >> $OS_VER
+            echo "${OS}${VER}"
             echo "OS VERSION is $OS_VER"
             if [[ "${{ OS_VER }}" == "centos7" ]]; then
                   cp startscript-centos7.sh Docker/Centos7/
