@@ -51,7 +51,7 @@ jobs:
       run: |
             echo $OS_VER
             
-            if [[ "${{ OS_VER }}" == "centos7" ]]; then
+            if [[ "$OS_VER" == "centos7" ]]; then
                   cp startscript-centos7.sh Docker/Centos7/
                   cd Docker/Centos7
                   docker build -t gluster-build --build-arg MYAPP_IMAGE=env.OS_VER .  
