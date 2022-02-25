@@ -73,9 +73,13 @@ jobs:
                     cp build.sh Docker/Ubuntu/
                     cd Docker/Ubuntu
                     SUB='dev'
+                    #when devel is passed, ubuntu requires the tag to build
                     if [[ "$BRANCH" == *"$SUB"* ]]; then
+                      #devel means latest tag from the repo
                       DEVEL_BR=$(git ls-remote --tags --refs --sort="v:refname" https://github.com/gluster/glusterfs | tail -n1 | sed 's/.*\///')
-                      BR=$(echo "${DEVEL_BR:1}")
+                      TEMP=$(echo "${DEVEL_BR:1}")
+                      #Devel is always the unreleased branch, we need a released branch no
+                      BR=$((TEMP-1))
                       SER=${BR%dev}
                       MIN=1
                     else
