@@ -85,7 +85,7 @@ jobs:
                     fi
                 
                     docker build -t gluster-build --build-arg MYAPP_IMAGE=$OS_VER .
-                    docker run --security-opt seccomp=unconfined --name container_gluster -v /build-out:/out gluster-build $OS $VER $SER $BR $MIN $BRANCH
+                    docker run --security-opt seccomp=unconfined --name container_gluster -v /build-out:/out gluster-build $OS $VER $SER $BR $MIN $DEVEL_BR
             fi
             
             if [[ ${{ env.OS }} == 'debian' ]]; then
