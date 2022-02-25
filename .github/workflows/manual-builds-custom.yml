@@ -96,18 +96,28 @@ jobs:
                     echo "Building for Debian"            
                     cp build.sh Docker/Debian/
                     cd Docker/Debian
-                    BR=$(echo "${BRANCH:1}")
-                    SER=${BR%.*}
-                    MIN=${BRANCH#*.}
+                    SUB='dev'
+                    #when devel is passed, debian requires the tag to build
+                    if [[ "$BRANCH" == *"$SUB"* ]]; then
+                      #devel means latest tag from the repo
+                      DEVEL_BR=$(git ls-remote --tags --refs --sort="v:refname" https://github.com/gluster/glusterfs | tail -n1 | sed 's/.*\///')
+                      BR=$(echo "${DEVEL_BR:1}")
+                      #Devel is always the unreleased branch, we need a released branch no
+                      TEMP=${BR%dev}
+                      SER=$((TEMP-1))
+                      MIN=1
+                    else
+                      BR=$(echo "${BRANCH:1}")
+                      SER=${BR%.*}
+                      MIN=${BRANCH#*.}
+                    fi
                     docker build -t gluster-build --build-arg MYAPP_IMAGE=$OS_VER .
-                    docker run --security-opt seccomp=unconfined --name container_gluster -v /build-out:/out gluster-build $OS $VER $SER $BR $MIN $BRANCH
+                    docker run --security-opt seccomp=unconfined --name container_gluster -v /build-out:/out gluster-build $OS $VER $SER $BR $MIN $DEVEL_BR
             fi
     
     - name: Upload Artifactory
       uses: actions/upload-artifact@v2
       with:
           name: gluster-rpms
-          path: | 
-            - /build-out/*.rpm 
-            - /build-out/*.deb
-          retention-days: 3
+          path: /build-out/*.*
+          retention-days: 1
