@@ -1,6 +1,6 @@
-# Based on the Fedora image
-FROM fedora:latest
+ARG MYAPP_IMAGE=fedora:latest
 
+FROM $MYAPP_IMAGE
 
 LABEL project="gluster-build"
 LABEL maintainer "gluster-users@gluster.org"
@@ -19,4 +19,6 @@ COPY ./startscript.sh /
 
 RUN chmod +x /startscript.sh
 
-CMD ./startscript.sh
+ENTRYPOINT ["/startscript.sh"]
+
+CMD ["devel"]
