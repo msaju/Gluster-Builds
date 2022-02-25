@@ -86,6 +86,7 @@ jobs:
                       BR=$(echo "${BRANCH:1}")
                       SER=${BR%.*}
                       MIN=${BRANCH#*.}
+                      DEVEL_BR=$BRANCH
                     fi
                 
                     docker build -t gluster-build --build-arg MYAPP_IMAGE=$OS_VER .
@@ -110,6 +111,7 @@ jobs:
                       BR=$(echo "${BRANCH:1}")
                       SER=${BR%.*}
                       MIN=${BRANCH#*.}
+                      DEVEL_BR=$BRANCH
                     fi
                     docker build -t gluster-build --build-arg MYAPP_IMAGE=$OS_VER .
                     docker run --security-opt seccomp=unconfined --name container_gluster -v /build-out:/out gluster-build $OS $VER $SER $BR $MIN $DEVEL_BR
