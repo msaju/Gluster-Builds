@@ -77,7 +77,7 @@ jobs:
                       DEVEL_BR=$(git ls-remote --tags --refs --sort="v:refname" https://github.com/gluster/glusterfs | tail -n1 | sed 's/.*\///')
                       BR=$(echo "${DEVEL_BR:1}")
                       SER=${BR%dev}
-                      MIN=$1
+                      MIN=1
                     else
                       BR=$(echo "${BRANCH:1}")
                       SER=${BR%.*}
