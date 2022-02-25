@@ -77,14 +77,10 @@ jobs:
                     if [[ "$BRANCH" == *"$SUB"* ]]; then
                       #devel means latest tag from the repo
                       DEVEL_BR=$(git ls-remote --tags --refs --sort="v:refname" https://github.com/gluster/glusterfs | tail -n1 | sed 's/.*\///')
-                      echo "Building devel Branch"
-                      echo $DEVEL_BR
-                      TEMP=$(echo "${DEVEL_BR:1}")
-                      echo $TEMP
+                      BR=$(echo "${DEVEL_BR:1}")
                       #Devel is always the unreleased branch, we need a released branch no
-                      BR=$((TEMP-1))
-                      echo $BR
-                      SER=${BR%dev}
+                      TEMP=${BR%dev}
+                      SER=$((TEMP-1))
                       MIN=1
                     else
                       BR=$(echo "${BRANCH:1}")
