@@ -64,9 +64,9 @@ jobs:
                     echo "Building for Fedora"
                     cp startscript.sh Docker/Fedora/
                     cd Docker/Fedora
-                    DEVEL_BR=$(echo "${BRANCH//F}")
-                    docker build -t gluster-build --build-arg MYAPP_IMAGE=$VER .
-                    docker run --name container_gluster -v /build-out:/out gluster-build $DEVEL_BR
+                    VERSION=$(echo "${OS_VER//F}")
+                    docker build -t gluster-build --build-arg MYAPP_IMAGE=$VERSION .
+                    docker run --name container_gluster -v /build-out:/out gluster-build $BRANCH
             fi
             
             if [[ ${{ env.OS }} == 'ubuntu' ]]; then
